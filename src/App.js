@@ -1,38 +1,8 @@
 import React from 'react';
 import './scss/app.scss';
-import Header from './components/Header';
-import Categories from './components/Categories';
-import Sort from './components/Sort';
-import PizzaBlock from './components/PizzaBlock';
+import { RouterProvider } from 'react-router-dom';
+import { router } from './router';
 
-function App() {
-  const [pizzas, setPizzas] = React.useState([]);
-  React.useEffect(() => {
-    fetch('https://63a9b662594f75dc1dbe1f39.mockapi.io/items')
-      .then((response) => response.json())
-      .then((data) => {
-        setPizzas(data);
-      });
-  }, []);
-  return (
-    <div className='wrapper'>
-      <Header />
-      <div className='content'>
-        <div className='container'>
-          <div className='content__top'>
-            <Categories />
-            <Sort />
-          </div>
-          <h2 className='content__title'>Все пиццы</h2>
-          <div className='content__items'>
-            {pizzas.map((data, index) => (
-              <PizzaBlock key={index} data={data} />
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
+const App = () => <RouterProvider router={router} />;
 
 export default App;

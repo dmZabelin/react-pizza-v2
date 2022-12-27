@@ -1,14 +1,14 @@
 import React from 'react';
 
-const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
+const categoriesArr = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
 
-function Categories() {
+const Categories = () => {
   const [isCategoryActive, setIsCategoryActive] = React.useState(0);
 
   return (
     <div className='categories'>
       <ul>
-        {categories.map((item, index) => {
+        {categoriesArr.map((item, index) => {
           return (
             <li
               onClick={() => setIsCategoryActive(index)}
@@ -21,6 +21,6 @@ function Categories() {
       </ul>
     </div>
   );
-}
+};
 
 export default Categories;
