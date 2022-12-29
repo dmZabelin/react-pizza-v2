@@ -1,7 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
-import Home from './pages/Home';
-import NotFound from './pages/NotFound';
-import Cart from './pages/Cart';
+import { Home, NotFound, Cart } from './pages';
 
 export const router = createBrowserRouter([
   {

@@ -1,12 +1,10 @@
 import React from 'react';
 import { Layout } from '../components/Layout';
 
-const Cart = () => {
+export const Cart = () => {
   return (
     <Layout>
       <h1> Корзина</h1>
     </Layout>
   );
 };
-
-export default Cart;

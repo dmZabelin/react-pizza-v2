@@ -5,7 +5,7 @@ import Skeleton from '../components/PizzaBlock/Skeleton';
 import PizzaBlock from '../components/PizzaBlock/PizzaBlock';
 import { Layout } from '../components/Layout';
 
-const Home = () => {
+export const Home = () => {
   const [pizzas, setPizzas] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
 
@@ -32,5 +32,3 @@ const Home = () => {
     </Layout>
   );
 };
-
-export default Home;
