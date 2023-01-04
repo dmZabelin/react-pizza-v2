@@ -16,6 +16,7 @@ export const Home = () => {
         setPizzas(data);
         setIsLoading(false);
       });
+    window.scroll(0, 0);
   }, []);
   return (
     <Layout>

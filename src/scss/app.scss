@@ -5,6 +5,7 @@
 
 body {
   background-color: $background;
+  min-width: 320px;
 }
 
 .wrapper {
@@ -50,8 +51,10 @@ body {
   &__items {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(1, 1fr);
-    grid-column-gap: 11px;
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 20px;
+
+    justify-content: center;
 
     @media (max-width: 1400px) {
       grid-template-columns: repeat(3, 1fr);
@@ -71,39 +74,22 @@ body {
     align-items: center;
     justify-content: space-between;
 
-    @media (max-width: 1260px) {
+    @media (max-width: 1400px) {
+      flex-direction: column-reverse;
+
       .categories {
         width: 100%;
         overflow: auto;
 
         ul {
           width: 785px;
+          margin: auto;
         }
       }
 
       .sort {
-        padding-left: 20px;
-        b {
-          display: none;
-        }
+        margin-bottom: 30px;
       }
-    }
-
-    @media (max-width: 760px) {
-      .categories {
-        ul {
-          li {
-            padding: 8px 20px;
-          }
-        }
-      }
-    }
-
-    @media (max-width: 820px) {
-      .categories {
-        margin-top: 30px;
-      }
-      flex-direction: column-reverse;
     }
   }
 }
