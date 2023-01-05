@@ -1,13 +1,16 @@
 import React from 'react';
 
-const Sort = () => {
+const Sort = ({ onChangeSort, value }) => {
   const [isVisible, setIsVisible] = React.useState(false);
-  const [selected, setSelected] = React.useState(0);
-  const list = ['популярности', 'цене', 'алфавиту'];
-  const sortedBy = list[selected];
+  const list = [
+    { name: 'популярности', sort: 'rating' },
+    { name: 'цене', sort: 'price' },
+    { name: 'алфавиту', sort: 'title' },
+  ];
+  const sortedBy = value.name;
 
-  function handleItemClick(index) {
-    setSelected(index);
+  function handleItemClick(sort) {
+    onChangeSort(sort);
     setIsVisible(false);
   }
 
@@ -31,13 +34,13 @@ const Sort = () => {
       {isVisible && (
         <div className='sort__popup'>
           <ul>
-            {list.map((item, index) => {
+            {list.map((obj, index) => {
               return (
                 <li
                   key={index}
-                  onClick={() => handleItemClick(index)}
-                  className={selected === index ? 'selected' : ''}>
-                  {item}
+                  onClick={() => handleItemClick(obj)}
+                  className={value.sort === obj.sort ? 'selected' : ''}>
+                  {obj.name}
                 </li>
               );
             })}
