@@ -1,10 +1,11 @@
 import React from 'react';
 
-const Sort = ({ onChangeSort, value }) => {
+export const Sort = ({ onChangeSort, value }) => {
   const [isVisible, setIsVisible] = React.useState(false);
   const list = [
+    { name: 'цене (по убыванию)', sort: 'price_desc' },
+    { name: 'цене (по возрастанию)', sort: 'price_asc' },
     { name: 'популярности', sort: 'rating' },
-    { name: 'цене', sort: 'price' },
     { name: 'алфавиту', sort: 'title' },
   ];
   const sortedBy = value.name;
@@ -50,5 +51,3 @@ const Sort = ({ onChangeSort, value }) => {
     </div>
   );
 };
-
-export default Sort;

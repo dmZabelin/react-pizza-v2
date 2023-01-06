@@ -1,6 +1,6 @@
 import React from 'react';
 
-const PizzaBlock = ({ data }) => {
+export const PizzaBlock = ({ data }) => {
   const { title, price, imageUrl, sizes, types } = data;
   const [pizzaCount, setPizzaCount] = React.useState(0);
   const [sizesActive, setSizesActive] = React.useState(0);
@@ -59,5 +59,3 @@ const PizzaBlock = ({ data }) => {
     </div>
   );
 };
-
-export default PizzaBlock;

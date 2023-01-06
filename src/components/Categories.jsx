@@ -2,7 +2,7 @@ import React from 'react';
 
 const categoriesArr = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
 
-const Categories = ({ value, getCategoryId }) => {
+export const Categories = ({ value, getCategoryId }) => {
   return (
     <div className='categories'>
       <ul>
@@ -20,5 +20,3 @@ const Categories = ({ value, getCategoryId }) => {
     </div>
   );
 };
-
-export default Categories;

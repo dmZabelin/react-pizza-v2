@@ -7,9 +7,14 @@
   .container {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-
-    @media (max-width: 645px) {
+    @media (max-width: 1400px) {
+      & > a {
+        margin-right: auto;
+      }
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    @media (max-width: 750px) {
       flex-direction: column;
 
       .header__cart {
@@ -20,6 +25,7 @@
 
   &__logo {
     display: flex;
+    margin-right: 50px;
 
     img {
       margin-right: 15px;
@@ -36,5 +42,9 @@
     p {
       color: #7b7b7b;
     }
+  }
+
+  &__cart {
+    margin-left: 10px;
   }
 }

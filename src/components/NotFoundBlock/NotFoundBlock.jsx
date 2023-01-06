@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './NotFoundBlock.module.scss';
 import { Layout } from '../Layout';
 
-const NotFoundBlock = () => {
+export const NotFoundBlock = () => {
   return (
     <Layout>
       <h1 className={styles.title}>
@@ -11,5 +11,3 @@ const NotFoundBlock = () => {
     </Layout>
   );
 };
-
-export default NotFoundBlock;
