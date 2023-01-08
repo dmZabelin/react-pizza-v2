@@ -4,21 +4,19 @@ import { PizzaBlock, Skeleton } from '../components/PizzaBlock';
 import { Layout } from '../components/Layout';
 import { SearchContext } from '../context';
 import Pagination from '../components/Pagination/Pagination';
+import { useSelector } from 'react-redux';
 
 export const Home = () => {
+  const { categoryId, sort } = useSelector((state) => state.filter);
+
   const { searchValue } = React.useContext(SearchContext);
   const [pizzas, setPizzas] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
-  const [categoryId, setCategoryId] = React.useState(0);
-  const [sortBy, setSortBy] = React.useState({
-    name: 'популярности',
-    sort: 'rating',
-  });
   const [currentPage, setCurrentPage] = React.useState(1);
 
   React.useEffect(() => {
-    const order = sortBy.sort.split('_')[1];
-    const cat = sortBy.sort.split('_')[0];
+    const order = sort.sortProperty.split('_')[1];
+    const cat = sort.sortProperty.split('_')[0];
     const search = searchValue ? `title=${searchValue}` : '';
 
     setIsLoading(true);
@@ -34,12 +32,13 @@ export const Home = () => {
         setIsLoading(false);
       });
     window.scroll(0, 0);
-  }, [categoryId, sortBy, searchValue, currentPage]);
+  }, [categoryId, sort, searchValue, currentPage]);
+
   return (
     <Layout>
       <div className='content__top'>
-        <Categories value={categoryId} getCategoryId={(id) => setCategoryId(id)} />
-        <Sort value={sortBy} onChangeSort={(type) => setSortBy(type)} />
+        <Categories />
+        <Sort />
       </div>
       <h2 className='content__title'>Все пиццы</h2>
       <div className='content__items'>
