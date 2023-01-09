@@ -5,6 +5,7 @@ import { Layout } from '../components/Layout';
 import { SearchContext } from '../context';
 import Pagination from '../components/Pagination/Pagination';
 import { useSelector } from 'react-redux';
+import axios from 'axios';
 
 export const Home = () => {
   const { categoryId, sort } = useSelector((state) => state.filter);
@@ -20,14 +21,13 @@ export const Home = () => {
     const search = searchValue ? `title=${searchValue}` : '';
 
     setIsLoading(true);
-
-    fetch(
-      `https://63a9b662594f75dc1dbe1f39.mockapi.io/items?page=${currentPage}&limit=4&${search}&${
-        categoryId > 0 ? `category=${categoryId}` : ''
-      }&sortBy=${cat}&order=${!order ? 'asc' : order}`,
-    )
-      .then((response) => response.json())
-      .then((data) => {
+    axios
+      .get(
+        `https://63a9b662594f75dc1dbe1f39.mockapi.io/items?page=${currentPage}&limit=4&${search}&${
+          categoryId > 0 ? `category=${categoryId}` : ''
+        }&sortBy=${cat}&order=${!order ? 'asc' : order}`,
+      )
+      .then(({ data }) => {
         setPizzas(data);
         setIsLoading(false);
       });
