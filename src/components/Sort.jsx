@@ -12,9 +12,24 @@ export const sortList = [
 export const Sort = () => {
   const dispatch = useDispatch();
 
+  const sortRef = React.useRef(null);
+
   const [isVisible, setIsVisible] = React.useState(false);
   const { sort } = useSelector((state) => state.filter);
   const sortedBy = sort.name;
+
+  function closeSortDropdown(event) {
+    if (!sortRef.current.contains(event.target)) {
+      setIsVisible(false);
+    }
+  }
+
+  React.useEffect(() => {
+    document.addEventListener('click', closeSortDropdown);
+    return () => {
+      document.removeEventListener('click', closeSortDropdown);
+    };
+  }, []);
 
   function handleItemClick(sort) {
     dispatch(setSortBy(sort));
@@ -22,7 +37,7 @@ export const Sort = () => {
   }
 
   return (
-    <div className='sort'>
+    <div className='sort' ref={sortRef}>
       <div className='sort__label'>
         <svg
           width='10'
