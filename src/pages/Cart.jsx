@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Layout } from '../components/Layout';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearItems } from '../redux/slices/cartSlice';
 import { CartItem } from '../components/CartItem';
@@ -12,14 +11,14 @@ export const Cart = () => {
 
   if (!totalPrice) {
     return (
-      <Layout>
+      <>
         <CartEmpty />
-      </Layout>
+      </>
     );
   }
 
   return (
-    <Layout>
+    <>
       <div className='container container--cart'>
         <div className='cart'>
           <div className='cart__top'>
@@ -132,6 +131,6 @@ export const Cart = () => {
           </div>
         </div>
       </div>
-    </Layout>
+    </>
   );
 };
