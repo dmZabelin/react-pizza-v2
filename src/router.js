@@ -1,17 +1,28 @@
 import { createBrowserRouter } from 'react-router-dom';
-import { Home, NotFound, Cart } from './pages';
+import { Cart, Home, NotFound, SinglePizza } from './pages';
+import { Layout } from './components/Layout';
 
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <Home />,
-  },
-  {
-    path: '*',
-    element: <NotFound />,
-  },
-  {
-    path: '/cart',
-    element: <Cart />,
+    element: <Layout />,
+    children: [
+      {
+        path: '*',
+        element: <NotFound />,
+      },
+      {
+        index: true,
+        element: <Home />,
+      },
+      {
+        path: 'cart',
+        element: <Cart />,
+      },
+      {
+        path: 'product/:id',
+        element: <SinglePizza />,
+      },
+    ],
   },
 ]);

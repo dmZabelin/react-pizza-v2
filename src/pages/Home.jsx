@@ -1,7 +1,6 @@
 import React from 'react';
 import { Categories, Sort, sortList } from '../components';
 import { PizzaBlock, Skeleton } from '../components/PizzaBlock';
-import { Layout } from '../components/Layout';
 import { SearchContext } from '../context';
 import Pagination from '../components/Pagination/Pagination';
 import { useDispatch, useSelector } from 'react-redux';
@@ -63,7 +62,7 @@ export const Home = () => {
   }, [categoryId, sort.sortProperty, currentPage]);
 
   return (
-    <Layout>
+    <>
       <div className='content__top'>
         <Categories />
         <Sort />
@@ -79,6 +78,6 @@ export const Home = () => {
         )}
       </div>
       <Pagination onChangePage={(num) => setCurrentPage(num)} />
-    </Layout>
+    </>
   );
 };
