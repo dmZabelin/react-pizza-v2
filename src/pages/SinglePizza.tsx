@@ -2,10 +2,15 @@ import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 
+interface ISinglePizza {
+  imageUrl: string;
+  title: string;
+}
+
 export function SinglePizza() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [data, setData] = React.useState({});
+  const [data, setData] = React.useState<ISinglePizza>();
 
   React.useEffect(() => {
     axios
@@ -18,6 +23,10 @@ export function SinglePizza() {
         navigate('/');
       });
   }, []);
+
+  if (!data) {
+    return <> Загрузка ... </>;
+  }
 
   return (
     <>
