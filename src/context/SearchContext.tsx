@@ -1,3 +1,12 @@
 import React from 'react';
 
-export const SearchContext = React.createContext({});
+interface ISearchContext {
+  searchValue: string;
+  setSearchValue: (str: string) => void;
+}
+
+export const SearchContext = React.createContext<ISearchContext>({
+  searchValue: '',
+  setSearchValue: (str) => {
+  },
+});

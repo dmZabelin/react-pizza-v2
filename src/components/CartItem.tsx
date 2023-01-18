@@ -3,7 +3,17 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { addItem, minusItem, removeItem } from '../redux/slices/cartSlice';
 
-export function CartItem({ id, title, imageUrl, type, size, count, price }) {
+interface ICartItem {
+  id: number;
+  title: string;
+  imageUrl: string;
+  type: string;
+  size: number;
+  count: number;
+  price: number;
+}
+
+export function CartItem({ id, title, imageUrl, type, size, count, price }: ICartItem) {
   const dispatch = useDispatch();
 
   function onClickPlus() {

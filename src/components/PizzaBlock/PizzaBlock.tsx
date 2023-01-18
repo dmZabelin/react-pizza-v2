@@ -1,13 +1,18 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { addItem } from '../../redux/slices/cartSlice';
+import { addItem, IItem } from '../../redux/slices/cartSlice';
+import { RootState } from '../../redux/store';
 
-export const PizzaBlock = ({ data }) => {
+interface IPizzaBlock {
+  data: IItem;
+}
+
+export const PizzaBlock = ({ data }: IPizzaBlock) => {
   const dispatch = useDispatch();
 
   const { id, title, price, imageUrl, sizes, types } = data;
-  const item = useSelector((state) => state.cart.items.find((obj) => obj.id === id));
+  const item = useSelector<RootState>((state) => state.cart.items.find((obj: IItem) => obj.id === id)) as IItem;
 
   const [sizesActive, setSizesActive] = React.useState(0);
   const [typesActive, setTypesActive] = React.useState(0);
@@ -16,6 +21,7 @@ export const PizzaBlock = ({ data }) => {
     dispatch(addItem({ id, title, price, imageUrl, type: typesActive, size: sizesActive }));
   }
 
+  // @ts-ignore
   return (
     <div className='pizza-block'>
       <Link to={`/product/${id}`}>
@@ -24,7 +30,7 @@ export const PizzaBlock = ({ data }) => {
       </Link>
       <div className='pizza-block__selector'>
         <ul>
-          {types.map((item, index) => {
+          {types.map((item, index: number) => {
             return (
               <li
                 onClick={() => setTypesActive(index)}
@@ -36,7 +42,7 @@ export const PizzaBlock = ({ data }) => {
           })}
         </ul>
         <ul>
-          {sizes.map((item, index) => {
+          {sizes.map((item, index: number) => {
             return (
               <li
                 onClick={() => setSizesActive(index)}

@@ -6,16 +6,18 @@ import Pagination from '../components/Pagination/Pagination';
 import { useDispatch, useSelector } from 'react-redux';
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
-import { setFilters } from '../redux/slices/filterSlice';
+import { IFilterSlice, setFilters } from '../redux/slices/filterSlice';
 import { fetchProductItems } from '../redux/slices/productSlice';
+import { RootState } from '../redux/store';
+import { IItem } from '../redux/slices/cartSlice';
 
 export const Home = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isMounted = React.useRef(false);
   const isSearch = React.useRef(false);
-  const { categoryId, sort } = useSelector((state) => state.filter);
-  const { items, status } = useSelector((state) => state.product);
+  const { categoryId, sort } = useSelector<RootState, IFilterSlice>((state) => state.filter);
+  const { items, status } = useSelector<RootState, any>((state) => state.product);
 
   const { searchValue } = React.useContext(SearchContext);
   const [currentPage, setCurrentPage] = React.useState(1);
@@ -24,6 +26,7 @@ export const Home = () => {
     const order = sort.sortProperty.split('_')[1];
     const cat = sort.sortProperty.split('_')[0];
     const search = searchValue ? `&title=${searchValue}` : '';
+    // @ts-ignore
     dispatch(fetchProductItems({ order, cat, search, categoryId, currentPage }));
   }
 
@@ -74,7 +77,7 @@ export const Home = () => {
         ) : status === 'loading' ? (
           [...new Array(4)].map((_, index) => <Skeleton key={index} />)
         ) : (
-          items.map((data, index) => <PizzaBlock key={index} data={data} />)
+          items.map((data: IItem, index: number) => <PizzaBlock key={index} data={data} />)
         )}
       </div>
       <Pagination onChangePage={(num) => setCurrentPage(num)} />

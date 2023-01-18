@@ -1,8 +1,14 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSortBy } from '../redux/slices/filterSlice';
+import { IFilterSlice, setSortBy } from '../redux/slices/filterSlice';
+import { RootState } from '../redux/store';
 
-export const sortList = [
+interface ISortList {
+  name: string;
+  sortProperty: string;
+}
+
+export const sortList: ISortList[] = [
   { name: 'цене (по убыванию)', sortProperty: 'price_desc' },
   { name: 'цене (по возрастанию)', sortProperty: 'price_asc' },
   { name: 'популярности', sortProperty: 'rating' },
@@ -12,13 +18,14 @@ export const sortList = [
 export const Sort = () => {
   const dispatch = useDispatch();
 
-  const sortRef = React.useRef(null);
+  const sortRef = React.useRef<HTMLDivElement>(null);
 
   const [isVisible, setIsVisible] = React.useState(false);
-  const { sort } = useSelector((state) => state.filter);
+  const { sort } = useSelector<RootState, IFilterSlice>((state) => state.filter);
   const sortedBy = sort.name;
 
-  function closeSortDropdown(event) {
+  function closeSortDropdown(event: any) {
+    if (!sortRef.current) return null;
     if (!sortRef.current.contains(event.target)) {
       setIsVisible(false);
     }
@@ -31,7 +38,7 @@ export const Sort = () => {
     };
   }, []);
 
-  function handleItemClick(sort) {
+  function handleItemClick(sort: ISortList) {
     dispatch(setSortBy(sort));
     setIsVisible(false);
   }

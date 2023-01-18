@@ -52,7 +52,7 @@ export const Header = () => {
               />
             </svg>
             <span>
-              {items.reduce((a, b) => {
+              {items.reduce((a: number, b: { count: number }): number => {
                 return a + b.count;
               }, 0)}
             </span>
