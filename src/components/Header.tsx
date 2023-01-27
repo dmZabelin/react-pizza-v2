@@ -1,11 +1,17 @@
 import logoSvg from '../assets/img/pizza-logo.svg';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { SearchBlock } from './SearchBlock';
 import { selectCart } from '../redux/slices/cartSlice';
+import { useEffect } from 'react';
+import { SearchBlock } from './SearchBlock/SearchBlock';
 
-export const Header = () => {
+export function Header() {
   const { items, totalPrice } = useSelector(selectCart);
+
+  useEffect(() => {
+    localStorage.setItem('items', JSON.stringify(items));
+  }, [items]);
+
   return (
     <div className='header'>
       <div className='container'>

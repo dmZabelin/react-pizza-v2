@@ -7,7 +7,7 @@ interface ISinglePizza {
   title: string;
 }
 
-export function SinglePizza() {
+function SinglePizza() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [data, setData] = React.useState<ISinglePizza>();
@@ -35,3 +35,5 @@ export function SinglePizza() {
     </>
   );
 }
+
+export default SinglePizza;

@@ -1,27 +1,34 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { addItem, IItem } from '../../redux/slices/cartSlice';
-import { RootState } from '../../redux/store';
+import { addItem } from '../../redux/slices/cartSlice';
+import { useAppDispatch, useAppSelector } from '../../redux/store';
+import { TProductItem } from '../../redux/slices/productSlice';
 
 interface IPizzaBlock {
-  data: IItem;
+  data: TProductItem;
 }
 
 export const PizzaBlock = ({ data }: IPizzaBlock) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const { id, title, price, imageUrl, sizes, types } = data;
-  const item = useSelector<RootState>((state) => state.cart.items.find((obj: IItem) => obj.id === id)) as IItem;
+  const item = useAppSelector((state) => state.cart.items.find((obj) => obj.id === id));
 
   const [sizesActive, setSizesActive] = React.useState(0);
   const [typesActive, setTypesActive] = React.useState(0);
 
   function handleAddToCart() {
-    dispatch(addItem({ id, title, price, imageUrl, type: typesActive, size: sizesActive }));
+    dispatch(addItem({
+      id,
+      title,
+      price,
+      imageUrl,
+      type: typesActive,
+      size: sizesActive,
+      count: item ? item.count : 1,
+    }));
   }
 
-  // @ts-ignore
   return (
     <div className='pizza-block'>
       <Link to={`/product/${id}`}>

@@ -1,49 +1,58 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
+import { getDataFromLS } from '../../utils/getDataFromLS';
 
 export interface ICartSlice {
   totalPrice: number;
-  items: IItem[];
+  items: TCartItem[];
 }
 
-export interface IItem {
+export type TCartItem = {
   id: number;
   title: string;
   imageUrl: string;
-  types: string[];
-  sizes: number[];
+  type: number;
+  size: number;
   count: number;
   price: number;
 }
 
+const { items, totalPrice } = getDataFromLS();
+
 const initialState: ICartSlice = {
-  totalPrice: 0,
-  items: [],
+  totalPrice: totalPrice,
+  items: items,
 };
+
+export function calcTotalPrice(items: TCartItem[]) {
+  return items.reduce((sum, obj) => {
+    return obj.price * obj.count + sum;
+  }, 0);
+}
 
 export const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    addItem: (state, action) => {
+    addItem: (state, action: PayloadAction<TCartItem>) => {
       const findItem = state.items.find((obj) => obj.id === action.payload.id);
       if (findItem) {
         findItem.count++;
       } else {
-        state.items.push({ ...action.payload, count: 1 });
+        state.items.push({ ...action.payload });
       }
 
-      state.totalPrice = state.items.reduce((sum, obj) => {
-        return obj.price * obj.count + sum;
-      }, 0);
+      state.totalPrice = calcTotalPrice(state.items);
     },
-    minusItem: (state, action) => {
+    minusItem: (state, action: PayloadAction<TCartItem>) => {
       const findItem = state.items.find((obj) => obj.id === action.payload.id);
       if (findItem) {
         findItem.count--;
       }
+
+      state.totalPrice = calcTotalPrice(state.items);
     },
-    removeItem: (state, action) => {
+    removeItem: (state, action: PayloadAction<number>) => {
       const findItem = state.items.find((obj) => obj.id === action.payload);
       if (findItem) {
         const currentPrice = findItem.price * findItem.count;

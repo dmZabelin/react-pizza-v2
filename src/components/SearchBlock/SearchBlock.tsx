@@ -3,7 +3,7 @@ import styles from './SearchBlock.module.scss';
 import { SearchContext } from '../../context';
 import debounce from 'lodash.debounce';
 
-export const SearchBlock = () => {
+export function SearchBlock() {
   const refInput = React.useRef<HTMLInputElement>(null);
   const [value, setValue] = React.useState('');
   const { setSearchValue } = React.useContext(SearchContext);

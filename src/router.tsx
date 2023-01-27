@@ -1,6 +1,11 @@
 import { createBrowserRouter } from 'react-router-dom';
-import { Cart, Home, NotFound, SinglePizza } from './pages';
-import { Layout } from './components/Layout';
+import Home from './pages/Home';
+import { Layout } from './components';
+import { lazy } from 'react';
+
+const Cart = lazy(() => import(/* webpackChunkName: "Cart" */ './pages/Cart'));
+const NotFound = lazy(() => import(/* webpackChunkName: "NotFound" */ './pages/NotFound'));
+const SinglePizza = lazy(() => import(/* webpackChunkName: "SinglePizza" */ './pages/SinglePizza'));
 
 export const router = createBrowserRouter([
   {

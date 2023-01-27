@@ -1,17 +1,14 @@
 import React from 'react';
-import { Categories, Sort, sortList } from '../components';
-import { PizzaBlock, Skeleton } from '../components/PizzaBlock';
+import { Categories, Pagination, PizzaBlock, Skeleton, Sort, sortList } from '../components';
 import { SearchContext } from '../context';
-import Pagination from '../components/Pagination/Pagination';
 import { useDispatch, useSelector } from 'react-redux';
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
 import { IFilterSlice, setFilters } from '../redux/slices/filterSlice';
-import { fetchProductItems } from '../redux/slices/productSlice';
+import { fetchProductItems, TProductItem } from '../redux/slices/productSlice';
 import { RootState } from '../redux/store';
-import { IItem } from '../redux/slices/cartSlice';
 
-export const Home = () => {
+function Home() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isMounted = React.useRef(false);
@@ -34,7 +31,9 @@ export const Home = () => {
     if (window.location.search) {
       const params = qs.parse(window.location.search.substring(1));
       const sort = sortList.find((obj) => obj.sortProperty === params.sortProperty);
-      dispatch(setFilters({ ...params, sort }));
+      if (sort) {
+        dispatch(setFilters({ categoryId: Number(params), sort }));
+      }
 
       isSearch.current = true;
     }
@@ -67,8 +66,8 @@ export const Home = () => {
   return (
     <>
       <div className='content__top'>
-        <Categories />
-        <Sort />
+        <Categories categoryId={categoryId} />
+        <Sort sort={sort} />
       </div>
       <h2 className='content__title'>Все пиццы</h2>
       <div className='content__items'>
@@ -77,10 +76,12 @@ export const Home = () => {
         ) : status === 'loading' ? (
           [...new Array(4)].map((_, index) => <Skeleton key={index} />)
         ) : (
-          items.map((data: IItem, index: number) => <PizzaBlock key={index} data={data} />)
+          items.map((data: TProductItem, index: number) => <PizzaBlock key={index} data={data} />)
         )}
       </div>
       <Pagination onChangePage={(num) => setCurrentPage(num)} />
     </>
   );
 };
+
+export default Home;

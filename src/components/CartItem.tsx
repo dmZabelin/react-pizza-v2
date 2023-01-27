@@ -1,31 +1,18 @@
 import React from 'react';
 
 import { useDispatch } from 'react-redux';
-import { addItem, minusItem, removeItem } from '../redux/slices/cartSlice';
+import { addItem, minusItem, removeItem, TCartItem } from '../redux/slices/cartSlice';
 
-interface ICartItem {
-  id: number;
-  title: string;
-  imageUrl: string;
-  type: string;
-  size: number;
-  count: number;
-  price: number;
-}
-
-export function CartItem({ id, title, imageUrl, type, size, count, price }: ICartItem) {
+export function CartItem(props: TCartItem) {
+  const { id, title, imageUrl, type, size, count, price } = props;
   const dispatch = useDispatch();
 
   function onClickPlus() {
-    dispatch(
-      addItem({
-        id,
-      }),
-    );
+    dispatch(addItem(props));
   }
 
   function onClickMinus() {
-    dispatch(minusItem({ id }));
+    dispatch(minusItem(props));
   }
 
   return (
