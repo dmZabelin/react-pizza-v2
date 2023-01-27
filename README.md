@@ -1,1 +1,1 @@
-### Presentation Link:  https://dmzabelin.github.io/react-pizza-v2/
+### Demo:  https://dmzabelin.github.io/react-pizza-v2/
