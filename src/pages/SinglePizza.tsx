@@ -30,7 +30,9 @@ function SinglePizza() {
 
   return (
     <>
-      <img src={data.imageUrl} alt={data.title} />
+      <div className='single__preview'>
+        <img src={data.imageUrl} alt={data.title} />
+      </div>
       <h1>{data.title}</h1>
     </>
   );

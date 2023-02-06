@@ -49,6 +49,7 @@
         font-weight: 600;
         font-size: 14px;
         @include noselect();
+
         &.active {
           background: #ffffff;
           box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.04);
@@ -71,5 +72,16 @@
     font-size: 22px;
     line-height: 27px;
     letter-spacing: 0.015em;
+  }
+}
+
+.single__preview {
+  width: 100%;
+  max-width: 565px;
+
+  img {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
   }
 }
